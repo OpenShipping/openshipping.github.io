@@ -1,5 +1,5 @@
 ---
-layout: page
+title: Standards Recommendations
 ---
 
 ## Standards Recommendations
@@ -59,7 +59,7 @@ Container sizes and types should use the **ISO 6346** standard codes. Any TEU co
 ### Charges
 
 Charge objects should consist of the following fields:
-1. The amount, represented using the standard currency object​
+1. The amount, represented using the standard currency object
 2. An integration specific charge code
 3. A short description
 4. An extended description
@@ -94,7 +94,7 @@ Charge objects should consist of the following fields:
     }
  ```
  
- ### Equipment Charges
+### Equipment Charges
  
  
 Equipment charges, regionally referred to as Equipment Free Time, Detention, Demurrage, and others, should be described as "Equipment Rental" and "Equipment Storage".
