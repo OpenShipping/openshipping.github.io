@@ -67,7 +67,7 @@ Charge objects should consist of the following fields:
 3. A short description
 4. An extended description
 5. A unit of measure object, with up to 3 attributes
-6. The pay party [based on UN/CEFACT Supply Chain Reference Data Model]
+6. The pay party [based on UN/CEFACT Supply Chain Reference Data Model](http://www.unece.org/fileadmin/DAM/uncefact/RSM/RSM_SCRDM_v1.0.0.2.pdf)
 7. A calculation method for the charge
 8. The date on which the charge should be calculated
 9. An object representing the UN/CEFACT freight cost code that represents the charge
