@@ -21,7 +21,7 @@ Common for the targeted use cases, legacy systems and emerging IoT devices is th
 Please note that the current version of the API is a baseline, not necessarily a final version. It covers the particular scope just described, and there is obviously many other aspects to global transport and trade which may be added in future releases. 
 
 ### UN/CEFACT Foundation
-![UNCEFACT Buy-Ship-Pay](cefact-bsp.png "UNCEFACT Buy-Ship-Pay")
+![UNCEFACT Buy-Ship-Pay](images/cefact-bsp.png)
 The Event API allows for publishing Consignments and Transport Equipment as events through a POSTing alongside the events, meant to serves as the context of those subsequent events. 
 
 These are direct implementations of the Consignment and Transport Equipment classes of the UN/CEFACT Supply Chain Reference Data Model (SCRDM)’s Buy-Ship-Pay model. The Consignment represents the contract of transport and the Transport Equipment used for that transport – all of interest to varying parties involved at each level. 
@@ -45,10 +45,10 @@ Movement and Means are implemented in the Milestone events. Both are represented
 * **ISO 6346**, implemented at attribute level for container identification
 
 ### Event Flow Example
-![Event Example](event-example.png)
+![Event Example](images/event-example.png)
 
 ### Endpoint Overview
-![Endpoint Overview](endpoint-overview.png "Endpoint Overview")
+![Endpoint Overview](images/endpoint-overview.png)
 
 ### Where Events Occur
 ![Event Occurances](event-locations.png)
@@ -58,16 +58,16 @@ Movement and Means are implemented in the Milestone events. Both are represented
 
 ## Milestone Events
 The Milestone events are modular, and can model any Consignment’s multi-modal transport plan. This reflects the various locations which the Equipment needs to moving move between for contractual and operational purposes. 
-![Event Model Locations](event-model-locations.png "Event Model Locations")
+![Event Model Locations](images/event-model-locations.png)
 
 Equipment is moved between locations by various means of transport. Such “legs” can be considered the edges connecting location nodes.  
-![Milestone Event Legs](event-model-legs.png "Milestone Event Legs")
+![Milestone Event Legs](images/event-model-legs.png)
 
 Each leg are represented consistently as four distinct, key milestone events representing how containers are first *loaded*, then *departs* from one location, *arrives* at a different location, and is *discharged* from that means of transport. This cycle is repeated for each leg of the transport plan. 
-![Milestone Event Events](event-model-events.png "Milestone Event Events")
+![Milestone Event Events](images/event-model-events.png)
 
 Through the journey, the container changes status, from *export* to *import*, and *empty* to *full* and then again *empty*. These statuses are represented as attributes on the events. 
-![Milestone Event Attributes](event-model-attr.png "Milestone Event Attributes")
+![Milestone Event Attributes](images/event-model-attr.png)
 
 Finally, each event comes in three types: *planned*, representing how the carrier intends to carry out the transport, *estimated*, which can be signaled along the way (not shown below), and *actual*, when the milestone event has been carried out. 
-![Milestone Event Types](event-model-types.png "Milestone Event Types")
+![Milestone Event Types](images/event-model-types.png)
