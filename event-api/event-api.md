@@ -52,7 +52,7 @@ Movement and Means are implemented in the Milestone events. Both are represented
 ![Endpoint Overview](images/endpoint-overview.png)
 
 ### Where Events Occur
-![Event Occurances](event-locations.png)
+![Event Occurances](images/event-locations.png)
 * All Milestone events occur within a defined location (UNLOCODE location and SMDG Terminal). 
 * Smart Events occur continuously along each leg (GPS Coordinates), between locations.
 * Generic Events may not relate to any kind of location at all.
@@ -89,10 +89,10 @@ Each, in turn, come in three flavors:
 * Actual – what has indeed happened
 
 This results in 12 distinct events per leg type: 
-![Events Per Leg](events-per-leg.png)
+![Events Per Leg](images/events-per-leg.png)
 
 Legs are joined together to form a full transport plan. Leg-joining happens at terminals.
-![Linked Events](linked-events.png) 
+![Linked Events](images/linked-events.png) 
 Note that Planned events relate to Consignments, whereas Estimates and Actuals relate to Equipment. This reflects that carriers plans for the full consignment, but containers are in reality moved individually. 
 
 There are individual events for each type of leg: 
@@ -101,23 +101,23 @@ There are individual events for each type of leg:
 * Barge
 * Vessel
 The event model thus consists of a total of 48 events: 
-![All Milestone Events](all-milestone-events.png) 
+![All Milestone Events](images/all-milestone-events.png) 
 This model is easily extensible (e.g. adding an “Air” leg type). 
 
 While the milestone event model is based on this strict logical, where appropriate the naming of individual events are made to embrace common industry lingo. E.g. “Gate out” instead of ”Truck departure”. 
 
 ### Milestone Event Example
-![Milestone Example](milestone-example.png)
+![Milestone Example](images/milestone-example.png)
 
 ## Schema Data Model
-![Schema Data Model](schema-structure.png)
+![Schema Data Model](images/schema-structure.png)
 
 ### Data Model Documentation 
 
 ### Linkage to Endpoints
 
 This diagram illustrates the relationship between endpoints and their payloads
-![Endpoint Payloads](endpoint-payloads.png)
+![Endpoint Payloads](images/endpoint-payloads.png)
 
 
 
