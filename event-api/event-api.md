@@ -23,7 +23,7 @@ Please note that the current version of the API is a baseline, not necessarily a
 
 ### UN/CEFACT Foundation
 
-(/images/CEFACT-BSP.png "UN/CEFACT Buy-Ship-Pay")
+(./images/CEFACT-BSP.png "UN/CEFACT Buy-Ship-Pay")
 
 The Event API allows for publishing Consignments and Transport Equipment as events through a POSTing alongside the events, meant to serves as the context of those subsequent events. 
 These are direct implementations of the Consignment and Transport Equipment classes of the UN/CEFACT Supply Chain Reference Data Model (SCRDM)’s Buy-Ship-Pay model. The Consignment represents the contract of transport and the Transport Equipment used for that transport – all of interest to varying parties involved at each level. 
