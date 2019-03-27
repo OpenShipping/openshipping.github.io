@@ -1,7 +1,6 @@
 # Event API
 
 ## Targeted Scope, Processes and Technology
-
 Event API has been driven primarily by participating shipping lines since the October 2018 workshop under OpenShipping.org. The majority of the content has been agreed among all OpenShipping.org participants – importantly decisions about which existing standard to build upon (listed on a later slide). 
 
 But the shipping lines’ focus in establishing the Event API is specifically based upon use cases around: 
@@ -22,13 +21,53 @@ Common for the targeted use cases, legacy systems and emerging IoT devices is th
 Please note that the current version of the API is a baseline, not necessarily a final version. It covers the particular scope just described, and there is obviously many other aspects to global transport and trade which may be added in future releases. 
 
 ### UN/CEFACT Foundation
-
-(./images/CEFACT-BSP.png "UN/CEFACT Buy-Ship-Pay")
-
+![UNCEFACT Buy-Ship-Pay](cefact-bsp.png "UNCEFACT Buy-Ship-Pay")
 The Event API allows for publishing Consignments and Transport Equipment as events through a POSTing alongside the events, meant to serves as the context of those subsequent events. 
+
 These are direct implementations of the Consignment and Transport Equipment classes of the UN/CEFACT Supply Chain Reference Data Model (SCRDM)’s Buy-Ship-Pay model. The Consignment represents the contract of transport and the Transport Equipment used for that transport – all of interest to varying parties involved at each level. 
+
 These form a hierarchy, with Transport Equipment sitting underneath a Consignment. Consignment also hold parties. Planned events relate to Consignments; Estimated and Actual events relate to Transport Equipment. 
 From the perspective of common carrier business processes, the Consignment roughly represents the booking confirmation, whereas the Transport Equipment represents the equipment matching (when a physically identified container has been assigned to the consignment). 
+
 Shipment plays an important role, but has not yet been included in this first version of the API entirely due to scope confinement. The Shipment class represents the traded of goods inside the containers, and are of important relevance to authorities, financial institutions, sellers and sellers. It is worth noting that LCL tracking should be done through the Shipment class, so the current version of the API is only meant to deal with FCL. We consider adding the Shipment class a natural future extension of the API. 
+
 It is also worth pointing out that consignments are commonly referred to as “shipments” in the carrier business (because carriers don’t need to distinguish). However, in order to accommodate the larger industry, and for general clarity, we fully embrace UN/CEFACT’s clear definitions, explicitly distinguishing between Trade Data (yellow) and Transport Data (blue). 
+
 Movement and Means are implemented in the Milestone events. Both are represented in the resource model, available through the Milestone event endpoints. 
+
+### Additional Adopted Standards
+* **UN/CEFACT Smart Container project under transports and logistics** for tracking and monitoring physical trip execution, implemented in the SmartEvent endpoints. 
+* **UN/CEFACT Code List recommendation 24**, supported through the generic events. 
+* **UN/Locode**, implemented at attribute level for geographical locations
+* **SMDG**, implemented at attribute level for terminal identification
+* **IMO**, implemented at attribute level vessel identification
+* **ISO 8601**, implemented at attribute level for time and timezone representation
+* **ISO 6346**, implemented at attribute level for container identification
+
+### Event Flow Example
+![Event Example](event-example.png)
+
+### Endpoint Overview
+![Endpoint Overview](endpoint-overview.png "Endpoint Overview")
+
+### Where Events Occur
+![Event Occurances](event-locations.png)
+* All Milestone events occur within a defined location (UNLOCODE location and SMDG Terminal). 
+* Smart Events occur continuously along each leg (GPS Coordinates), between locations.
+* Generic Events may not relate to any kind of location at all.
+
+## Milestone Events
+The Milestone events are modular, and can model any Consignment’s multi-modal transport plan. This reflects the various locations which the Equipment needs to moving move between for contractual and operational purposes. 
+![Event Model Locations](event-model-locations.png "Event Model Locations")
+
+Equipment is moved between locations by various means of transport. Such “legs” can be considered the edges connecting location nodes.  
+![Milestone Event Legs](event-model-legs.png "Milestone Event Legs")
+
+Each leg are represented consistently as four distinct, key milestone events representing how containers are first *loaded*, then *departs* from one location, *arrives* at a different location, and is *discharged* from that means of transport. This cycle is repeated for each leg of the transport plan. 
+![Milestone Event Events](event-model-events.png "Milestone Event Events")
+
+Through the journey, the container changes status, from *export* to *import*, and *empty* to *full* and then again *empty*. These statuses are represented as attributes on the events. 
+![Milestone Event Attributes](event-model-attr.png "Milestone Event Attributes")
+
+Finally, each event comes in three types: *planned*, representing how the carrier intends to carry out the transport, *estimated*, which can be signaled along the way (not shown below), and *actual*, when the milestone event has been carried out. 
+![Milestone Event Types](event-model-types.png "Milestone Event Types")
