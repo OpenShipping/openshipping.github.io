@@ -16,7 +16,8 @@ Functionally, our ambition has been to specify a design which:
 * Is rooted in – and builds upon – existing standards.
 * Breaks down barriers to entry by applying generic, logical models and self-explanatory naming. 
 
-Common for the targeted use cases, legacy systems and emerging IoT devices is that communication is event-driven. What this means is that a heterogeneous landscape of actors (human, organizations, devices, etc) emit statuses on a near-real time, best-effort basis. Similarly, a heterogeneous landscape of actors receive and react on these events. The individual event aims to communicate what has happened, but does not imply how this information is to be used – it is left to the receiver how to action received events, including keeping state.This is in contrast to other communication paradigms, notably REST, which is very commonly implemented over APIs, leveraging HTTP’s verbiage for also communicating how data is intended to be stored and manipulated. This is a very practical pattern in many situations, but less suitable for the targeted use cases in the heterogeneous landscape of shipping. Practically, this results in an all HTTP POST API, requiring business logic to properly react. As mentioned above, 1) such business events exist in legacy systems throughout the industry, and 2) significant emphasis has been put on the aspects of genericness, logic and simplicity. 
+Common for the targeted use cases, legacy systems and emerging IoT devices is that communication is event-driven. What this means is that a heterogeneous landscape of actors (human, organizations, devices, etc) emit statuses on a near-real time, best-effort basis. Similarly, a heterogeneous landscape of actors receive and react on these events. The individual event aims to communicate what has happened, but does not imply how this information is to be used – it is left to the receiver how to action received events, including keeping state.
+This is in contrast to other communication paradigms, notably REST, which is very commonly implemented over APIs, leveraging HTTP’s verbiage for also communicating how data is intended to be stored and manipulated. This is a very practical pattern in many situations, but less suitable for the targeted use cases in the heterogeneous landscape of shipping. Practically, this results in an all HTTP POST API, requiring business logic to properly react. As mentioned above, 1) such business events exist in legacy systems throughout the industry, and 2) significant emphasis has been put on the aspects of genericness, logic and simplicity. 
 
 Please note that the current version of the API is a baseline, not necessarily a final version. It covers the particular scope just described, and there is obviously many other aspects to global transport and trade which may be added in future releases. 
 
@@ -57,6 +58,8 @@ Movement and Means are implemented in the Milestone events. Both are represented
 * Generic Events may not relate to any kind of location at all.
 
 ## Milestone Events
+
+### Milestone Event Introduction
 The Milestone events are modular, and can model any Consignment’s multi-modal transport plan. This reflects the various locations which the Equipment needs to moving move between for contractual and operational purposes. 
 ![Event Model Locations](images/event-model-locations.png)
 
@@ -71,3 +74,28 @@ Through the journey, the container changes status, from *export* to *import*, an
 
 Finally, each event comes in three types: *planned*, representing how the carrier intends to carry out the transport, *estimated*, which can be signaled along the way (not shown below), and *actual*, when the milestone event has been carried out. 
 ![Milestone Event Types](images/event-model-types.png)
+
+### Milestone Event Model
+
+
+
+
+![Events Per Leg](events-per-leg.png)
+
+![Linked Events](linked-events.png)
+
+![All Milestone Events](all-milestone-events.png)
+
+![Milestone Example](milestone-example.png)
+
+## Schema Data Model
+
+![Schema Data Model](schema-structure.png)
+
+![Endpoint Payloads](endpoint-payloads.png)
+
+
+
+
+
+
