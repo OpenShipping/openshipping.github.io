@@ -1,0 +1,1384 @@
+openapi: 3.0.0
+info:
+  version: "0.1"
+  title: Openshipping - Standard Tracking API
+  description: API providing POST event endpoints
+  contact:
+    name: openshipping.org
+externalDocs:
+  description: 'External Doc: Smart event definition documentation'
+  url: 'https://app.swaggerhub.com/apis/API-Factory/Smart_Event_Catalog/0.0.3'
+tags:
+  - name: Consignment and Transport Equipment Context
+    description: Establishes the data about Consignments and TransportEquipment which serves as the context of the subsequent events. Transport Equipment are assigned to Consignments. Consignment also hold parties. Planned events relate to Consignments; Estimated and Actual events relate to Transport Equipment.  
+  - name: Planned Milestone Events
+    description: |
+      Planned events are subitted by the carrier, responsible for executing a consignment as per the agreement of the booking. Planned events are associated to the consigment, and apply to all the consignment's transport equipment.
+  - name: Estimated Milestone Events
+    description: Estimated events can be submitted by participants of the consignment execution. They represent how the planned events are expected to be executed. An estimate event may affect plan, but does not automatically change it. Planned events are associated individually to transport equipment.
+  - name: Actual Milestone Events
+    description: Actual events registers details of executed events which has already been carried out. Planned events are associated individually to transport equipment.
+  - name: Smart Events
+    description: Events provided in-transit by smart devices.
+  - name: Generic Events
+    description: General events related to transport, such as those defined in UN/CEFACT Recommentation 24 or EDIFACT.  
+paths:
+  /consignments:
+    post:
+      tags:
+        - Context
+      summary: A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document.
+      description: |
+        Consingments can be created by the following roles
+        - Carrier (CA),
+        - Consignor (CZ),
+        - Rail carrier (GT ORIGIN or GT DESTINATION),
+        - Road carrier (GA ORIGIN or GA DESTINATION)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consignment'
+        description: Consignment object
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+          description: OK
+        '400':
+          description: Invalid input
+  /transportEquipment:
+    post:
+      tags:
+        - Context
+      summary: A piece of equipment used to hold, protect or secure cargo for logistics purposes.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransportEquipment'
+      description: Transport equipment object
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+          description: OK
+        '400':
+          description: Invalid input
+  /consignments/{consignmentRef}/plannedTruckLoads:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      summary: Creates a planned truck load event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedGateOuts:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      summary: Creates a planned gate out, truck departure event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedGateIns:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      summary: Creates a planned gate in, truck arrival event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedTruckDischarges:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      summary: Creates a planned truck discharge event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+
+  /consignments/{consignmentRef}/plannedRailLoads:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:  
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedRailDepartures:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedRailArrivals:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedRailDischarges:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedBargeLoads:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedBargeDepartures:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedBargeArrivals:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedBargeDischarges:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedVesselLoads:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedVesselDepartures:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedVesselArrivals:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /consignments/{consignmentRef}/plannedVesselDischarges:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Planned events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+  /transportEquipment/{equipmentNumber}/estimatedTruckLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      summary: Creates an estimated truck loading event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedGateIns:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      summary: Creates an estimated gate in event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedGateOuts:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      summary: Creates an estimated gate out event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedTruckDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      summary: Creates an estimated truck discharge event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+  /transportEquipment/{equipmentNumber}/estimatedRailLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+  /transportEquipment/{equipmentNumber}/estimatedRailDepartures:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+             $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedRailArrivals:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedRailDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedBargeLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedBargeDepartures:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+       '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedBargeArrivals:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedBargeDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedVesselLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedVesselDepartures:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedVesselArrivals:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedVesselDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+  /transportEquipment/{equipmentNumber}/actualTruckLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      summary: Creates an actual loaded on truck event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualGateIns:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      summary: Creates an actual gate in event, representing the arrival of a truck to a terminal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualGateOuts:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      summary: Creates and actual gate out event, representing the departure of a truck from a terminal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualTruckDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      summary: Creates an actual discharged from truck event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+
+  /transportEquipment/{equipmentNumber}/actualRailLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualRailDepartures:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualRailArrivals:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualRailDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualBargeLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualBargeDepartures:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualBargeArrivals:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualBargeDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualVesselLoads:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualVesselDepartures:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualVesselArrivals:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualVesselDischarges:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualMilestoneEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+
+  /transportEquipment/{equipmentNumber}/estimatedSmartEvent:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Estimated events
+        - Smart events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedSmartEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+  /transportEquipment/{equipmentNumber}/actualSmartEvent:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Actual events
+        - Smart events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualSmartEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+
+
+  /consignments/{consignmentRef}/plannedGenericEvent:
+    parameters:
+      - in: path
+        name: consignmentRef
+        schema:
+          type: string
+        required: true
+        description: booking number
+    post:
+      tags:
+        - Generic events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlannedEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/estimatedGenericEvent:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Generic events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EstimatedEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+  /transportEquipment/{equipmentNumber}/actualGenericEvent:
+    parameters:
+      - in: path
+        name: equipmentNumber
+        schema:
+          type: string
+        required: true
+        description: Equipment number
+    post:
+      tags:
+        - Generic events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActualEvent'
+      responses:
+        '202':
+          $ref: '#/components/responses/Event202'
+
+components:
+  responses:
+    Event202:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Response'
+  schemas:
+    Shipment:
+      type: object
+      description: A shipment is an identifiable collection of one or more Trade Items (available to be) transported together from the Seller (Original Consignor/Shipper) to the Buyer (Final/Ultimate Consignee).
+      required:
+        - purchaseOrder
+      properties:
+        purchaseOrder:
+          type: string
+          description: Provided reference to the Shipment
+        shipmentId:
+          type: string
+          format: uuid
+          description: System generated identifier for the Shipment
+    Consignment:
+      type: object
+      description: A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document.
+      required:
+        - consignmentRef
+      properties:
+        consignmentRef:
+          type: string
+          description: The unique identification of the Consignment, issued by the carrier. It is recommended that this is either the carrier booking number or bill of lading number. Please refer to UN/EDIFACT's "BN" and "BL" codes ("BN" defined as Consignment identifier, carrier assigned [1016] Reference number assigned by a carrier of its agent to identify a specific consignment such as a booking reference number when cargo space is reserved prior to loading. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
+        consignmentId:
+          type: string
+          format: uuid
+          description: System generated identifier of the Consignment
+        originatorId:
+          type: string
+          description: SCAC code of the organization that published this event
+        correlationId:
+          type: string
+          description: User-supplied ID for this event
+        shipmentId:
+          type: string
+          description: shipmentId
+    TransportEquipment:
+      type: object
+      properties:
+        transportEquipmentId:
+          type: string
+        equipmentNumber:
+          description: The ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's "EQ" code. Number assigned by the manufacturer to specific equipment.(http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
+          type: string
+        commodityCode:
+          description: Commodities carried in the container
+          type: array
+          items:
+            type: string
+            description: HS6 harmonized commodity code
+        consignmentId:
+          type: string
+          description: consignmentId
+        carrierBookingNumber:
+          type: string
+          description: Booking number of the Consigment which the Container Transport is part of
+
+    Event:
+      type: object
+      required:
+        - eventTime
+      properties:
+        originatorId:
+          type: string
+          description: SCAC code of the organization that published this event
+        eventTime:
+          type: string
+          format: date-time
+          description: Time of the event occurrance, in ISO 8601 format yyyy-MM-dd'T'hh:mm:ss.sss±hh:mm
+          example: '2018-06-22T06:20:30.000-01:00'
+        correlationId:
+          type: string
+          description: User-supplied ID for this event
+        eventCodeType:
+          type: string
+          description: 'This can link to coded event standards, such as ''EDIFACT'' or ''CEFACT Recommendation 24''.'
+          example: 'CEFACT Recommendation 24'
+        eventCodeValue:
+          type: string
+          description: 'The code as per the codification scheme.'
+          example: 359
+        eventCodeDescription:
+          type: string
+          description: 'Description as per the codeification scheme.'
+          example: 'Bill of Lading issued'
+        consignmentRef:
+          description: Consignment identifier, carrier assigned reference number assigned by a carrier of its agent to identify a specific consignment such as a
+            booking reference number when cargo space is reserved prior to loading. "BN" as defined in http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm
+          type: string
+          example: 966378757
+
+    PlannedEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Event'
+      properties:
+        planRef:
+          type: string
+          description: Common reference used across a set of planned events, in order to associate them to the same plan.
+      required:
+        - consignmentRef
+
+    EstimatedEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Event'
+      properties:
+        equipmentNumber:
+          description: The ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's "EQ" code. Number assigned by the manufacturer to specific equipment. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
+          type: string
+          example: MRSU3395549
+        gpsLocation:
+          description: 'GPS coordinates [latitude,longitude]'
+          example: 55.702248, 12.600225
+          type: array
+          items:
+            type: number
+            minItems: 2
+            maxItems: 2
+      required:
+        - equipmentNumber
+
+    ActualEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/Event'
+      properties:
+        equipmentNumber:
+          description: The ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's "EQ" code. Number assigned by the manufacturer to specific equipment. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
+          type: string
+          example: MRSU3395549
+        gpsLocation:
+          description: 'GPS coordinates [latitude,longitude]'
+          example: 55.702248, 12.600225
+          type: array
+          items:
+            type: number
+            minItems: 2
+            maxItems: 2
+      required:
+        - equipmentNumber
+
+    PlannedMilestoneEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PlannedEvent'
+        - $ref: '#/components/schemas/MilestoneEventData'
+
+    EstimatedMilestoneEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EstimatedEvent'
+        - $ref: '#/components/schemas/MilestoneEventData'
+
+    ActualMilestoneEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ActualEvent'
+        - $ref: '#/components/schemas/MilestoneEventData'
+
+    MilestoneEventData:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/TransportMovement'
+        - $ref: '#/components/schemas/TransportMeans'
+      properties:
+        location:
+          type: string
+          description: The UN/LOCODE where the event occured.
+          example: AUSYD
+        terminal:
+          type: string
+          description: SMDG code of the terminal where the event took place. The SMDG code must be denoted with a dash "-" between the UN/LOCODE and the Terminal code. Note that the UN/LOCODE provided as part of the terminal's SMDG code will in most cases be the same provided in the location attribute but can deviate, thus please always provide the full SMDG code
+          example: USMOB-APMT
+        transportationPhase:
+          description: The transportation phase
+          type: string
+          enum:
+            - Import
+            - Export
+            - Transshipment
+          example: Import
+        fullStatus:
+          type: string
+          description: Indication of whether the container is full or empty
+          enum:
+            - Full
+            - Empty
+          example: Full
+
+    TransportMeans:
+      description: 'The devices used to convey goods or other objects from place to place during logistics cargo movements.'
+      type: object
+      properties:
+        vehicleId:
+          type: string
+          description: Identification of the means of transport. Use IMO numbers for vessels and barges
+          example: 9337262
+        vehiculeType:
+          type: string
+          description: 'Vehicle type: Truck, Vessel, Rail, Barge, Air'
+
+    TransportMovement:
+      description: 'The conveyance (physical carriage) of goods or other objects used for logistics transport purposes.'
+      type: object
+      properties:
+        transportReference:
+          type: integer
+          description: A transport reference like Transport Order, Visit number (sequence in the tour for rail transportation), or Voyage number for vessels.
+
+    ActualSmartEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ActualEvent'
+        - $ref: '#/components/schemas/SmartEventData'
+      required:
+        - gpsLocation
+    EstimatedSmartEvent:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/EstimatedEvent'
+        - $ref: '#/components/schemas/SmartEventData'
+      required:
+        - gpsLocation
+    SmartEventData:
+      type: object
+      properties:
+        metaData:
+          $ref: '#/components/schemas/MetaData'
+        eventDetail:
+          type: object
+          description : 'A smart event can contain detail data. Data providers should agree on a common definition of the details of each smart event. See external link: https://app.swaggerhub.com/apis/API-Factory/Smart_Event_Catalog/0.0.3'
+      required:
+        - metaData
+
+    MetaData:
+      type: object
+      description: metadata related to smart events
+      properties:
+        assetId:
+          type: string
+          description: 'Container number: 4 letters + 7 digits written on the container, defined by BIC'
+        assetType:
+          type: string
+          description: 'Asset type. For instance, ''DRY'' or ''Refeer'' '
+        deviceId:
+          type: string
+          description: Id of the IOT device used for asset tracking
+        generationTimestamp:
+          type: string
+          format: date-time
+          description: Generation timestamp of the event, in ISO 8601 format yyyy-MM-dd'T'hh:mm:ss.sss±hh:mm
+        software:
+          type: string
+          description: Software used for posting event
+        softwareVersion:
+          type: string
+          description: Software version
+
+    Response:
+      type: object
+      required:
+        - eventId
+      properties:
+        eventId:
+          description: Event ID, which can be used to later reference this event
+          type: string
+          format: uuid
+          example: ecf6e935-bb2d-471e-8506-e3ada3c0f5f2
