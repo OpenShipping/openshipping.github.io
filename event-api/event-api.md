@@ -77,21 +77,46 @@ Finally, each event comes in three types: *planned*, representing how the carrie
 
 ### Milestone Event Model
 
+A transport plan Leg is described by four events: 
+* Load
+* Departure
+* Arrival 
+* Discharge
 
+Each, in turn, come in three flavors: 
+* Planned – what is supposed to happen
+* Estimated – what and when events are expected to happen
+* Actual – what has indeed happened
 
-
+This results in 12 distinct events per leg type: 
 ![Events Per Leg](events-per-leg.png)
 
-![Linked Events](linked-events.png)
+Legs are joined together to form a full transport plan. Leg-joining happens at terminals.
+![Linked Events](linked-events.png) 
+Note that Planned events relate to Consignments, whereas Estimates and Actuals relate to Equipment. This reflects that carriers plans for the full consignment, but containers are in reality moved individually. 
 
-![All Milestone Events](all-milestone-events.png)
+There are individual events for each type of leg: 
+* Truck 
+* Rail
+* Barge
+* Vessel
+The event model thus consists of a total of 48 events: 
+![All Milestone Events](all-milestone-events.png) 
+This model is easily extensible (e.g. adding an “Air” leg type). 
 
+While the milestone event model is based on this strict logical, where appropriate the naming of individual events are made to embrace common industry lingo. E.g. “Gate out” instead of ”Truck departure”. 
+
+### Milestone Event Example
 ![Milestone Example](milestone-example.png)
 
 ## Schema Data Model
-
 ![Schema Data Model](schema-structure.png)
 
+### Data Model Documentation 
+
+### Linkage to Endpoints
+
+This diagram illustrates the relationship between endpoints and their payloads
 ![Endpoint Payloads](endpoint-payloads.png)
 
 
