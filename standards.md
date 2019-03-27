@@ -24,8 +24,7 @@ The recommendation for terminals is to use **SMDG** codes. Non-existent codes ca
 ```
 {
     "standard":"SMDG",
-    "unlocode":"USLAX",
-    "terminal_code":"APMT"
+    "terminal_code":"USLAX-APMT"
 }
 ```
 
