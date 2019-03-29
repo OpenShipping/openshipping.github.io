@@ -52,7 +52,7 @@ Movement and Means are implemented in the Milestone events. Both are represented
 ![Endpoint Overview](images/endpoint-overview.png)
 
 ### Where Events Occur
-![Event Occurances](images/event-locations.png)
+![Event Occurances](images/where-events-occur.png)
 * All Milestone events occur within a defined location (UNLOCODE location and SMDG Terminal). 
 * Smart Events occur continuously along each leg (GPS Coordinates), between locations.
 * Generic Events may not relate to any kind of location at all.
@@ -113,6 +113,133 @@ While the milestone event model is based on this strict logical, where appropria
 ![Schema Data Model](images/schema-structure.png)
 
 ### Data Model Documentation 
+The section describes the attributes contributed by each schema defined in the Event API OpenAPI specification. 
+
+![Consignement and TransportEquipment Schemas](images/schemas-cons-te.png)
+
+Consignnment and Transport Equipment data serve as context of the tracking events.
+
+#### Consignment
+A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document.
+
+#### TransportEquipment
+A piece of equipment used to hold, protect or secure cargo for logistics purposes. Transport Equipment are assigned to consignment when its transport execution starts.
+
+
+![Event Schema](images/schemas-event.png)
+#### Event
+The model relies on a main generic entity “Event” which provides a generic pattern to describe a tracking event.
+Two types of events will be described later: Milestones & Smart Events.
+
+**eventCodeType**
+`string`
+This can link to coded event standards, such as 'EDIFACT' or 'CEFACT Recommendation 24'.
+example: CEFACT Recommendation 24
+
+**eventCodeValue**
+`string`
+The code as per the above codification scheme. 
+example: 359
+
+**eventCodeDescription**
+`string`
+Description as per the codeification scheme. 
+example: Bill of Lading issued
+
+**eventTime**
+`string($date-time)`
+Time of the event occurrance, in ISO 8601 format
+
+**originatorId**
+`string`
+SCAC code of the organization that published this event
+
+**correlationId**
+`string`
+‘Technical’ User-supplied ID for this event
+
+
+![Generic Event Schemas](images/schemas-generic.png)
+#### PlannedEvent
+Planned events are submitted by the carrier, responsible for executing a consignment as per the agreement of the booking.
+A consignment trip plan might be updated (e.g. due to route change), and thus planned events could be grouped according to a plan reference or revision.
+
+**consignmentRef**
+`string`
+Consignment identifier, carrier assigned reference number assigned by a carrier of its agent to identify a specific consignment such as a booking reference number when cargo space is reserved prior to loading. "BN" as defined in http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm
+ This property allows to link the event to a consignment context.
+
+**planRef**
+`string`
+Common reference used across a set of planned events, in order to associate them to the same plan.
+
+####EstimatedEvent
+Estimated events can be submitted by participants of the consignment execution. They represent how the planned events are expected to be executed. 
+An estimated event is related to one of the transport equipment. It might affect the consignment plan, but it does not automatically change it.
+
+####ActualEvent
+Actual events register details of events which has already been occurred.
+
+**equipmentNumber**
+`string`
+ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's "EQ" code. Number assigned by the manufacturer to specific equipment. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
+This property allows to link the event to a transport equipment context.
+
+**gpsLocation**
+The GPS coordinates of event location (longitude, altitude)
+
+![Milestone Event Schemas](images/schemas-milestone.png)
+
+#### Planned/Estimated/Actual MilestoneEvents
+Milestones events inherit from generic events, with additional specific “MilestoneEventData”
+
+**location**
+`string` The UN/LOCODE where the event occurred. example: AUSYD
+
+**terminal**
+`string` SMDG code of the terminal where the event took place. example: USMOB-APMTSMDG 
+
+**transportationPhase**
+`string` The transportation phase. example: Import
+
+**fullStatus**
+`string` Indication of whether the container is full or empty. example: Full
+
+**Transport Movement**
+`Object`
+The conveyance (physical carriage) of goods or other objects used for logistics transport purpose. It includes:
+* **vehicleId**: Identification of the means of transport. Use IMO numbers for vessels and barges
+* **vehicleType**: Truck, Vessel, Rail, Barge, Air
+
+**Transport Means**
+`Object`
+The devices used to convey goods or other objects from place to place during logistics cargo movements. It includes:
+* **transportReference**: A transport reference like Transport Order, Visit number (sequence in the tour for rail transportation), or Voyage number for vessels.
+
+
+![Smart Event Schemas](images/schemas-smart.png)
+
+####Estimated/Actual SmartEvents
+Smart containers equipped with new technologies such as IoT can send “smart events” to transport participants.
+Smart events are ‘actual’, and could be ‘estimated’ if the smart container is ‘aware’ of its transport context and able to analyze it. 
+
+**metaData**
+metadata related to smart events:
+* **assetId**: Container number
+* **assetType**: Asset type. For instance, 'DRY' or 'Refeer'
+* **deviceId**: Id of the IOT device used for asset tracking
+* **generationTimestamp**: Generation timestamp of the eventsoftware: Name of software used for posting event
+* **softwareVersion**: Software version
+* **eventDetail** ‘free’ Object.
+
+Smart event may carry  additional data, such as:
+* physical reefer measurements – for reefer monitoring,
+* out of range values – for reefer alerting
+* Location details – for geofencing.
+* ...
+
+This ‘generic’ object will be specified later, based on outputs of smart container project (i.e. codification of smart events and their data model). 
+
 
 ### Linkage to Endpoints
 
