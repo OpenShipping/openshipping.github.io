@@ -1,7 +1,7 @@
 # Event API
 
 ## Targeted Scope, Processes and Technology
-Event API has been driven primarily by participating shipping lines since the October 2018 workshop under OpenShipping.org. The majority of the content has been agreed among all OpenShipping.org participants – importantly decisions about which existing standard to build upon (listed on a later slide). 
+Event API has been driven primarily by participating shipping lines since the October 2018 workshop under OpenShipping.org. The majority of the content has been agreed among all OpenShipping.org participants – importantly decisions about which existing standard to build upon (listed later). 
 
 But the shipping lines’ focus in establishing the Event API is specifically based upon use cases around: 
 
