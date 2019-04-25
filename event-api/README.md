@@ -27,16 +27,13 @@ This is in contrast to other communication paradigms, notably REST, which is ver
 
 ### UN/CEFACT Foundation
 ![UNCEFACT Buy-Ship-Pay](images/cefact-bsp.png)
-The Event API allows for publishing Consignments and Transport Equipment as events through a POSTing alongside the events, meant to serves as the context of those subsequent events. 
+The Event API allows for publishing Consignments and Transport Equipment as events through a POSTing alongside the events, meant to serves as the context of those subsequent events. These are direct implementations of the Consignment and Transport Equipment classes of the UN/CEFACT Supply Chain Reference Data Model (SCRDM)’s Buy-Ship-Pay model, which is to be considered the semantic reference model for this API. 
 
-These are direct implementations of the Consignment and Transport Equipment classes of the UN/CEFACT Supply Chain Reference Data Model (SCRDM)’s Buy-Ship-Pay model. The Consignment represents the contract of transport and the Transport Equipment used for that transport – all of interest to varying parties involved at each level. 
+A *Consignment* represents the contracted movement of goods and the Transport Equipment used for that transport. From the perspective of common carrier business processes, the Consignment roughly represents the booking confirmation and/or a bill of lading (in cases where they differ). Please note that Consignment is to be distinguished from "shipment", which refers to the traded goods. These semantics are often a bit blurry, carriers traditionally have not have a reason to distinguish. Throughout the API semantics are adopted directly from the UN/CEFACT SCRDM Buy-Ship-Pay model, emphasizing this distinction between Trade Data (yellow) and Transport Data (blue). 
 
-These form a hierarchy, with Transport Equipment sitting underneath a Consignment. Consignment also hold parties. Planned events relate to Consignments; Estimated and Actual events relate to Transport Equipment. 
-From the perspective of common carrier business processes, the Consignment roughly represents the booking confirmation, whereas the Transport Equipment represents the equipment matching (when a physically identified container has been assigned to the consignment). 
+*Transport Equipment* in our context can be considered a container. Particularly, it represents the equipment matching, when a physically identified container has been assigned to the consignment.  The relation to a Consignment is important: since the same physical container is reused over and over, it is the Transport Equipment within a Consignment which is relevant to a given set of shipping parties. 
 
 Shipment plays an important role, but has not yet been included in this first version of the API entirely due to scope confinement. The Shipment class represents the traded of goods inside the containers, and are of important relevance to authorities, financial institutions, sellers and sellers. It is worth noting that LCL tracking should be done through the Shipment class, so the current version of the API is only meant to deal with FCL. We consider adding the Shipment class a natural future extension of the API. 
-
-It is also worth pointing out that consignments are commonly referred to as “shipments” in the carrier business (because carriers don’t need to distinguish). However, in order to accommodate the larger industry, and for general clarity, we fully embrace UN/CEFACT’s clear definitions, explicitly distinguishing between Trade Data (yellow) and Transport Data (blue). 
 
 Movement and Means are implemented in the Milestone events. Both are represented in the resource model, available through the Milestone event endpoints. 
 
@@ -52,15 +49,9 @@ Movement and Means are implemented in the Milestone events. Both are represented
 ## Logical Data Model
 ![Class Overview](images/class-overview.png)
 
-The above diagram illustrates the fundamental classes of the API. The main resources involved are Consignments and Transport Equipment. 
+The above diagram illustrates the fundamental classes of the Tracking API. The main resources involved are *Consignments* and *Transport Equipment*, already described above. Next up are the various kinds of events, which come in three flavors: planned, estimated and actual. 
 
-As described above, the *Consignment* represents the contracted movement of goods. In this containerized context, the Consignment defines a bunch of containers to be moved.
-
-*Transport Equipment* in our context can be considered a container. It's worth pointing out the importance of its relation to a Consignment: since the same physical container is reused over and over, it is the Transport Equipment within a Consignment which is relevant to a given set of shipping parties. 
-
-Next up are the various kinds of events, which come in three flavors: planned, estimated and actual. 
-
-By and large, the industry plans at the Consignment level (meaning the plan is the same for all containers), and very often the individual container cannot be identified until a while after the plan is issued. This is represented by *Planned Events*, which are bundled into a full Consignment transport plan. 
+By and large, the industry plans at the Consignment level (meaning the plan is the same for all containers), and very often the individual container cannot be identified until a while after the plan is issued. This is represented by *Planned Events*, which are thus bundled into a full Consignment transport plan. 
 
 By contrast, *Actual Events* are physical occurrences of the individual, identified containers. A container is gated in, not a Consignment. Thus, Actual Events relate to Transport Equipment. 
 
