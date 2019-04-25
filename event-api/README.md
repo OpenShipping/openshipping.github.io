@@ -1,11 +1,10 @@
 # OpenShipping.org Event API
 
-The *Event API* deals with data sharing among shipping organizations. Data providers include any organization which takes an active part in the movement of containers. Data consumers can be anyone interested in these movements for operational or commercial purposes, capable of interpreting live streams of event data. 
+The *Event API* deals with data sharing among shipping organizations. Data providers include any organization which takes an active part in the movement of containers. Data consumers can be anyone interested in these movements for operational or commercial purposes, capable of interpreting live streams of event data. The API is designed specifically for stateless fire-and-forget event posting, with emphasis on simple mapping especially from carriers' back-end systems. The OpenShipping.org Event API is fully documented [here](event-api.md).
 
-The API is designed specifically for stateless fire-and-forget event posting, with emphasis on simple mapping especially from carriers' back-end systems. The OpenShipping.org Event API is fully documented [here](event-api.md).
-OpenAPI .yaml file for the Event API is [here](event-api.yaml) as well as on SwaggerHub [here](https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-EventAPI). 
+The corresponding OpenAPI .yaml file for the Event API is found here: [event-api.yaml](event-api.yaml). The same is also available on SwaggerHub here: [https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-EventAPI](https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-EventAPI). 
 
-While event publishing and tracking are individual use cases (and technically essentially segregates the POST and the GET endpoints), they largely deal with the same data, and are based on a common logical data model.
+Please note that the current version of the API is a baseline, not necessarily a final version. It covers the particular scope just described, and there is obviously many other aspects to global transport and trade which may be added in future releases. 
 
 ## Targeted Scope, Processes and Technology
 Event API has been driven primarily by participating shipping lines since the October 2018 workshop under OpenShipping.org. The majority of the content has been agreed among all OpenShipping.org participants – importantly decisions about which existing standard to build upon (listed later). 
@@ -25,8 +24,6 @@ Functionally, our ambition has been to specify a design which:
 
 Common for the targeted use cases, legacy systems and emerging IoT devices is that communication is event-driven. What this means is that a heterogeneous landscape of actors (human, organizations, devices, etc) emit statuses on a near-real time, best-effort basis. Similarly, a heterogeneous landscape of actors receive and react on these events. The individual event aims to communicate what has happened, but does not imply how this information is to be used – it is left to the receiver how to action received events, including keeping state.
 This is in contrast to other communication paradigms, notably REST, which is very commonly implemented over APIs, leveraging HTTP’s verbiage for also communicating how data is intended to be stored and manipulated. This is a very practical pattern in many situations, but less suitable for the targeted use cases in the heterogeneous landscape of shipping. Practically, this results in an all HTTP POST API, requiring business logic to properly react. As mentioned above, 1) such business events exist in legacy systems throughout the industry, and 2) significant emphasis has been put on the aspects of genericness, logic and simplicity. 
-
-Please note that the current version of the API is a baseline, not necessarily a final version. It covers the particular scope just described, and there is obviously many other aspects to global transport and trade which may be added in future releases. 
 
 ### UN/CEFACT Foundation
 ![UNCEFACT Buy-Ship-Pay](images/cefact-bsp.png)
