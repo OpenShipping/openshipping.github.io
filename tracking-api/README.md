@@ -2,7 +2,10 @@
 
 The *Tracking API* provides querying functionality for getting shipping status, targeted answering common industry tracking requests. Data publishers include carriers and other shipping actors, as well as data aggregation service providers. Data consumers are mainly beneficiary cargo owners, shippers, consignees and similar customers with a need to track cargo movements. 
 
-OpenAPI .yaml file for the Tracking API can be found [here](tracking-api.yaml) and also on SwaggerHub [here](https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-TrackingAPI).
+The corresponding OpenAPI .yaml file for the Tracking API can be found here: [tracking-api.yaml](tracking-api.yaml). The same is also on SwaggerHub here: [https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-TrackingAPI](https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-TrackingAPI).
+
+## Background
+The Tracking API was developed in continuation of the OpenShipping.org [Event API](https://github.com/OpenShipping/openshipping.github.io/tree/master/event-api). It is a natural continuation of the data model of the Event API, based on the exact same data model and event model, essentially just changed to serve request/reply (GET) tracking use cases instead of stateless event publishing (POST). While strongly related, the two APIs can certainly stand on their own, serving quite different use cases. Thus, large parts of the documentation is identical between these two specifications.
 
 ## Logical Data Model
 ![Class Overview](images/class-overview.png)
