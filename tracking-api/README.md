@@ -1,14 +1,8 @@
-# OpenShipping.org API for Event Publishing and Tracking
+# OpenShipping.org Tracking API
 
-This API deals with data sharing among shipping organizations. Data providers include any organization which takes an active part in the movement of containers, while data consumers can be anyone interested in these movements. The API has been separated into two parts, specifically targeted these two groups of personas.
+The *Tracking API* provides querying functionality for getting shipping status, targeted answering common industry tracking requests. Data publishers include carriers and other shipping actors, as well as data aggregation service providers. Data consumers are mainly beneficiary cargo owners, shippers, consignees and similar customers with a need to track cargo movements. 
 
-The *Event API* is designed specifically for stateless fire-and-forget event posting, with emphasis on simple mapping especially from carriers' back-end systems. The OpenShipping.org Event API is fully documented [here](event-api.md).
-OpenAPI .yaml file for the Event API is [here](swagger/event-api.yaml) as well as on SwaggerHub [here](https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-EventAPI). 
-
-The *Tracking API* provides querying functionality for getting shipping status, targeted answering common industry tracking requests. The OpenShipping.org Tracking API is documented [here](tracking-api.md). 
-OpenAPI .yaml file for the Tracking API is [here](swagger/tracking-api.yaml) as well as on SwaggerHub [here](https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-TrackingAPI).
-
-While event publishing and tracking are individual use cases (and technically essentially segregates the POST and the GET endpoints), they largely deal with the same data, and are based on a common logical data model.
+OpenAPI .yaml file for the Tracking API can be found [here](tracking-api.yaml) and also on SwaggerHub [here](https://app.swaggerhub.com/apis/OpenShippingDotOrg/OpenShipping-TrackingAPI).
 
 ## Logical Data Model
 ![Class Overview](images/class-overview.png)
