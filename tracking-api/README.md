@@ -45,6 +45,125 @@ By contrast, *Actual Events* are physical occurrences of the individual, identif
 
 The same is the case for *Estimated Events*, which are operational expected occurrences such as ETAs and ETDs. This is different from a plan: a delay may render a plan invalid, but it doesn't automatically update that plan to a new one. 
 
+### Example TransportEquipment Responses
+```
+{
+  "consignmentRef": "CMA32112",
+  "equipmentNumber": "MRSU3395549",
+  "milestoneEvents": [
+    {
+      "eventNature": "Estimated",
+      "eventTime": "2018-08-02T06:08:20.000+05:00",
+      "eventCodeDescription": "Estimated vessel departure",
+      "vehicleId": 9356309,
+      "vehicleType": "922W",
+      "location": "USMOB",
+      "terminal": "USMOB-APMT",
+      "transportationPhase": "Import",
+      "fullStatus": "Full"
+    },
+    {
+      "eventNature": "Actual",
+      "eventTime": "2018-06-22T06:20:30.000-04:00",
+      "eventCodeDescription": "Actual vessel arrival",
+      "vehicleId": 9356309,
+      "vehicleType": "922W",
+      "terminal": "MYTPP-PTP",
+      "location": "MYTPP",
+      "transportationPhase": "Export",
+      "fullStatus": "Full"
+    }
+  ],
+  "smartEvents": [
+  ],
+  "genericEvents": [
+    {
+      "eventNature": "Actual",
+      "eventTime": "2018-06-29T06:10:30.000-04:00",
+      "eventCodeType": "CEFACT Recommendation 24",
+      "eventCodeValue": 359,
+      "eventCodeDescription": "Bill of Lading issued",
+      "gpsLocation": "55.702248, 12.600225"
+    }
+  ]
+}
+```
+
+### Example Consignment Responses
+```
+{
+  "consignmentRef": "CMA32112",
+  "milestoneEvents": [
+    {
+      "eventNature": "Planned",
+      "eventTime": "2018-08-03T06:20:00.000+05:00",
+      "eventCodeDescription": "Planned vessel departure",
+      "vehicleId": 9356309,
+      "vehicleType": "922W",
+      "location": "USMOB",
+      "terminal": "USMOB-APMT",
+      "transportationPhase": "Import",
+      "fullStatus": "Full"
+    },
+    {
+      "eventNature": "Planned",
+      "eventTime": "2018-06-22T08:00:30.000-04:00",
+      "eventCodeDescription": "Planned vessel arrival",
+      "vehicleId": 9356309,
+      "vehicleType": "922W",
+      "terminal": "MYTPP-PTP",
+      "location": "MYTPP",
+      "transportationPhase": "Export",
+      "fullStatus": "Full"
+    }
+  ],
+  "genericEvents": [
+  ],
+  "transportEquipment": [
+    {
+	  "consignmentRef": "CMA32112",
+	  "equipmentNumber": "MRSU3395549",
+      "milestoneEvents": [
+        {
+	      "eventNature": "Estimated",
+	      "eventTime": "2018-08-02T06:08:20.000+05:00",
+	      "eventCodeDescription": "Estimated vessel departure",
+	      "vehicleId": 9356309,
+	      "vehicleType": "922W",
+	      "location": "USMOB",
+	      "terminal": "USMOB-APMT",
+	      "transportationPhase": "Import",
+	      "fullStatus": "Full"
+	    },
+	    {
+	      "eventNature": "Actual",
+	      "eventTime": "2018-06-22T06:20:30.000-04:00",
+	      "eventCodeDescription": "Actual vessel arrival",
+	      "vehicleId": 9356309,
+	      "vehicleType": "922W",
+	      "terminal": "MYTPP-PTP",
+	      "location": "MYTPP",
+	      "transportationPhase": "Export",
+	      "fullStatus": "Full"
+	    }
+      ],
+      "smartEvents": [
+      ],
+      "genericEvents": [
+	    {
+	      "eventNature": "Actual",
+	      "eventTime": "2018-06-29T06:10:30.000-04:00",
+	      "eventCodeType": "CEFACT Recommendation 24",
+	      "eventCodeValue": 359,
+	      "eventCodeDescription": "Bill of Lading issued",
+	      "gpsLocation": "55.702248, 12.600225"
+	    }
+      ]
+    }
+  ]
+}
+```
+
 ## Event Model
 The returned lists of events are further subdivided based on a logical model, which is introduced in this section. 
 
