@@ -235,8 +235,7 @@ As presented in the resource model, this API allows to get tracking data of Cons
 *A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document [CEFACT definition]*.
 
 In our tracking context, the Consignment schema provides the following data:
-- **consignmentRef**: 
-
+- consignmentRef: 
 Consignment identifier, carrier assigned reference number assigned by a carrier of its agent to identify a specific consignment such as a booking reference number when cargo space is reserved prior to loading (BN as defined in http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
 - The aggregation of **Planned Events** that have been registered for this consignment.
 - The aggregation of tracking data of each **Transport Equipment** related to this consignment.
@@ -245,8 +244,7 @@ Consignment identifier, carrier assigned reference number assigned by a carrier 
 *A piece of equipment used to hold, protect or secure cargo for logistics purposes [CEFACT definition]. Transport Equipment are assigned to consignment when its transport execution starts.*
 
 In our tracking context, **TransportEquipment** schema provides the following data:
-- **equipmentNumber**
-
+- equipmentNumber:
 ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's EQ code. Number assigned by the manufacturer to specific equipment. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
 - The reference of the related consignment (if the user is authenticated and has the right to 	access data at consignment level)
 - The aggregation of **Estimated Events** that have been registered for this equipment.
@@ -258,26 +256,26 @@ The model shows that Planned/Estimated/Actual events inherit all from a generic 
 #### Event
 The model relies on a main generic entity **Event** which provides a generic pattern to describe a tracking event.
 
-**eventCodeType**
+* **eventCodeType**
 `string`
 This can link to coded event standards, such as 'EDIFACT' or 'CEFACT Recommendation 24'.
 example: CEFACT Recommendation 24
 
-**eventCodeValue**
+* **eventCodeValue**
 `string`
 The code as per the above codification scheme. 
 example: 359
 
-**eventCodeDescription**
+* **eventCodeDescription**
 `string`
 Description as per the codeification scheme. 
 example: Bill of Lading issued
 
-**eventTime**
+* **eventTime**
 `string($date-time)`
 Time of the event occurrance, in ISO 8601 format
 
-**originatorId**
+* **originatorId**
 `string`
 SCAC code of the organization that published this event
 
@@ -287,7 +285,7 @@ A consignment trip plan might be updated (e.g. due to route change), and thus pl
 
 A Planned Event is an Event with the following additional property:
 
-**planRef**
+* **planRef**
 `string`
 Common reference used across a set of planned events, in order to associate them to the same plan.
 
@@ -299,7 +297,7 @@ Actual events register details of events which has already been occurred.
 
 An Estimated or Actual Event is an Event with the following additional property:
 
-**gpsLocation**
+* **gpsLocation**
 The GPS coordinates of event location (longitude, altitude)
 
 #### Planned/Estimated/Actual MilestoneEvents
@@ -307,28 +305,28 @@ The GPS coordinates of event location (longitude, altitude)
 
 Milestones events inherit from generic events, with additional specific **MilestoneEventData**:
 
-**location**
+* **location**
 `string` The UN/LOCODE where the event occurred. example: AUSYD
 
-**terminal**
+* **terminal**
 `string` SMDG code of the terminal where the event took place. example: USMOB-APMTSMDG 
 
-**transportationPhase**
+* **transportationPhase**
 `string` The transportation phase. example: Import
 
-**fullStatus**
+* **fullStatus**
 `string` Indication of whether the container is full or empty. example: Full
 
-**Transport Movement**
+* **Transport Movement**
 `Object`
 The conveyance (physical carriage) of goods or other objects used for logistics transport purpose. It includes:
-* **vehicleId**: Identification of the means of transport. Use IMO numbers for vessels and barges
-* **vehicleType**: Truck, Vessel, Rail, Barge, Air
+	- **vehicleId**: Identification of the means of transport. Use IMO numbers for vessels and barges
+	- **vehicleType**: Truck, Vessel, Rail, Barge, Air
 
-**Transport Means**
+* **Transport Means**
 `Object`
 The devices used to convey goods or other objects from place to place during logistics cargo movements. It includes:
-* **transportReference**: A transport reference like Transport Order, Visit number (sequence in the tour for rail transportation), or Voyage number for vessels.
+	- **transportReference**: A transport reference like Transport Order, Visit number (sequence in the tour for rail transportation), or Voyage number for vessels.
 
 
 #### Estimated/Actual SmartEvents
