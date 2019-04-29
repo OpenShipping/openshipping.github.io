@@ -235,7 +235,7 @@ As presented in the resource model, this API allows to get tracking data of Cons
 *A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document [CEFACT definition]*.
 
 In our tracking context, the Consignment schema provides the following data:
-- consignmentRef: 
+- **consignmentRef**: 
 Consignment identifier, carrier assigned reference number assigned by a carrier of its agent to identify a specific consignment such as a booking reference number when cargo space is reserved prior to loading (BN as defined in http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
 - The aggregation of **Planned Events** that have been registered for this consignment.
 - The aggregation of tracking data of each **Transport Equipment** related to this consignment.
@@ -244,7 +244,7 @@ Consignment identifier, carrier assigned reference number assigned by a carrier 
 *A piece of equipment used to hold, protect or secure cargo for logistics purposes [CEFACT definition]. Transport Equipment are assigned to consignment when its transport execution starts.*
 
 In our tracking context, **TransportEquipment** schema provides the following data:
-- equipmentNumber:
+- **equipmentNumber**:
 ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's EQ code. Number assigned by the manufacturer to specific equipment. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
 - The reference of the related consignment (if the user is authenticated and has the right to 	access data at consignment level)
 - The aggregation of **Estimated Events** that have been registered for this equipment.
@@ -284,7 +284,6 @@ Planned events are submitted by the carrier, responsible for executing a consign
 A consignment trip plan might be updated (e.g. due to route change), and thus planned events could be grouped according to a plan reference or revision. 
 
 A Planned Event is an Event with the following additional property:
-
 * **planRef**
 `string`
 Common reference used across a set of planned events, in order to associate them to the same plan.
@@ -295,8 +294,8 @@ Estimated events can be submitted by participants of the consignment execution. 
 #### ActualEvent
 Actual events register details of events which has already been occurred.
 
-An Estimated or Actual Event is an Event with the following additional property:
 
+An Estimated or Actual Event is an Event with the following additional property:
 * **gpsLocation**
 The GPS coordinates of event location (longitude, altitude)
 
