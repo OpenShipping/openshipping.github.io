@@ -300,7 +300,7 @@ An Estimated or Actual Event is an Event with the following additional property:
 The GPS coordinates of event location (longitude, altitude)
 
 #### Planned/Estimated/Actual MilestoneEvents
-![Milestone Event Schemas](images/tracking-datamodel - Milestone.png)
+![Milestone Event Schemas](images/tracking-datamodel-Milestone.png)
 
 Milestones events inherit from generic events, with additional specific **MilestoneEventData**:
 
@@ -329,7 +329,7 @@ The devices used to convey goods or other objects from place to place during log
 
 
 #### Estimated/Actual SmartEvents
-![Smart Event Schemas](images/tracking-datamodel - smartevent.png)
+![Smart Event Schemas](images/tracking-datamodel-smartevent.png)
 
 Smart containers equipped with new technologies such as IoT can send “smart events” to transport participants.
 Smart events are ‘actual’, and could be ‘estimated’ if the smart container is ‘aware’ of its transport context and able to analyze it. 
