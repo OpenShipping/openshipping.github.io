@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1"
+  version: "1.0.0"
   title: Openshipping - Standard Tracking API
   description: API providing POST event endpoints
   contact:
@@ -26,7 +26,7 @@ paths:
   /consignments:
     post:
       tags:
-        - Context
+        - Consignment and Transport Equipment Context
       summary: A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document.
       description: |
         Consingments can be created by the following roles
@@ -52,7 +52,7 @@ paths:
   /transportEquipment:
     post:
       tags:
-        - Context
+        - Consignment and Transport Equipment Context
       summary: A piece of equipment used to hold, protect or secure cargo for logistics purposes.
       requestBody:
         content:
@@ -79,7 +79,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       summary: Creates a planned truck load event
       requestBody:
         content:
@@ -99,7 +99,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       summary: Creates a planned gate out, truck departure event
       requestBody:
         content:
@@ -119,7 +119,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       summary: Creates a planned gate in, truck arrival event
       requestBody:
         content:
@@ -139,7 +139,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       summary: Creates a planned truck discharge event
       requestBody:
         content:
@@ -161,7 +161,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -180,7 +180,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -199,7 +199,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -218,7 +218,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -237,7 +237,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -256,7 +256,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -275,7 +275,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -294,7 +294,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -313,7 +313,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -332,7 +332,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -351,7 +351,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -370,7 +370,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Planned events
+        - Planned Milestone Events
       requestBody:
         content:
           application/json:
@@ -390,7 +390,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       summary: Creates an estimated truck loading event
       requestBody:
         content:
@@ -410,7 +410,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       summary: Creates an estimated gate in event
       requestBody:
         content:
@@ -430,7 +430,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       summary: Creates an estimated gate out event
       requestBody:
         content:
@@ -450,7 +450,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       summary: Creates an estimated truck discharge event
       requestBody:
         content:
@@ -471,7 +471,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -491,7 +491,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -510,7 +510,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -529,7 +529,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -548,7 +548,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -567,7 +567,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -586,7 +586,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -605,7 +605,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -624,7 +624,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -643,7 +643,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -662,7 +662,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -681,7 +681,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
+        - Estimated Milestone Events
       requestBody:
         content:
           application/json:
@@ -701,7 +701,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       summary: Creates an actual loaded on truck event
       requestBody:
         content:
@@ -721,7 +721,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       summary: Creates an actual gate in event, representing the arrival of a truck to a terminal
       requestBody:
         content:
@@ -741,7 +741,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       summary: Creates and actual gate out event, representing the departure of a truck from a terminal
       requestBody:
         content:
@@ -761,7 +761,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       summary: Creates an actual discharged from truck event
       requestBody:
         content:
@@ -783,7 +783,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -802,7 +802,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -821,7 +821,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -840,7 +840,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -859,7 +859,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -878,7 +878,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -897,7 +897,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -916,7 +916,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -935,7 +935,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -954,7 +954,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -973,7 +973,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -992,7 +992,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
+        - Actual Milestone Events
       requestBody:
         content:
           application/json:
@@ -1013,8 +1013,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Estimated events
-        - Smart events
+        - Smart Events
       requestBody:
         content:
           application/json:
@@ -1034,8 +1033,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Actual events
-        - Smart events
+        - Smart Events
       requestBody:
         content:
           application/json:
@@ -1057,7 +1055,7 @@ paths:
         description: booking number
     post:
       tags:
-        - Generic events
+        - Generic Events
       requestBody:
         content:
           application/json:
@@ -1076,7 +1074,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Generic events
+        - Generic Events
       requestBody:
         content:
           application/json:
@@ -1095,7 +1093,7 @@ paths:
         description: Equipment number
     post:
       tags:
-        - Generic events
+        - Generic Events
       requestBody:
         content:
           application/json:
@@ -1114,19 +1112,6 @@ components:
           schema:
             $ref: '#/components/schemas/Response'
   schemas:
-    Shipment:
-      type: object
-      description: A shipment is an identifiable collection of one or more Trade Items (available to be) transported together from the Seller (Original Consignor/Shipper) to the Buyer (Final/Ultimate Consignee).
-      required:
-        - purchaseOrder
-      properties:
-        purchaseOrder:
-          type: string
-          description: Provided reference to the Shipment
-        shipmentId:
-          type: string
-          format: uuid
-          description: System generated identifier for the Shipment
     Consignment:
       type: object
       description: A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document.
@@ -1311,7 +1296,7 @@ components:
           type: string
           description: Identification of the means of transport. Use IMO numbers for vessels and barges
           example: 9337262
-        vehiculeType:
+        vehicleType:
           type: string
           description: 'Vehicle type: Truck, Vessel, Rail, Barge, Air'
 
