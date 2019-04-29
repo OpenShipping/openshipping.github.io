@@ -228,15 +228,15 @@ While the milestone event model is based on this strict logical, where appropria
 ### Data Model Documentation 
 The section describes the attributes contributed by each schema defined in the Tracking API OpenAPI specification. 
 
-![Consignement and TransportEquipment Schemas](images/tracking-datamodel-resources.png)
-
 As presented in the resource model, this API allows to get tracking data of Consignments and Transport Equipment resources.
+![Consignement and TransportEquipment Schemas](images/tracking-datamodel-resources.png)
 
 #### Consignment
 *A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document [CEFACT definition]*.
 
 In our tracking context, the Consignment schema provides the following data:
 - **consignmentRef**: 
+
 Consignment identifier, carrier assigned reference number assigned by a carrier of its agent to identify a specific consignment such as a booking reference number when cargo space is reserved prior to loading (BN as defined in http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
 - The aggregation of **Planned Events** that have been registered for this consignment.
 - The aggregation of tracking data of each **Transport Equipment** related to this consignment.
@@ -246,6 +246,7 @@ Consignment identifier, carrier assigned reference number assigned by a carrier 
 
 In our tracking context, **TransportEquipment** schema provides the following data:
 - **equipmentNumber**
+
 ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's EQ code. Number assigned by the manufacturer to specific equipment. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
 - The reference of the related consignment (if the user is authenticated and has the right to 	access data at consignment level)
 - The aggregation of **Estimated Events** that have been registered for this equipment.
@@ -280,10 +281,6 @@ Time of the event occurrance, in ISO 8601 format
 `string`
 SCAC code of the organization that published this event
 
-**correlationId**
-`string`
-‘Technical’ User-supplied ID for this event
-
 #### PlannedEvent
 Planned events are submitted by the carrier, responsible for executing a consignment as per the agreement of the booking.
 A consignment trip plan might be updated (e.g. due to route change), and thus planned events could be grouped according to a plan reference or revision. 
@@ -294,10 +291,10 @@ A Planned Event is an Event with the following additional property:
 `string`
 Common reference used across a set of planned events, in order to associate them to the same plan.
 
-####EstimatedEvent
+#### EstimatedEvent
 Estimated events can be submitted by participants of the consignment execution. They represent how the planned events are expected to be executed. 
 
-####ActualEvent
+#### ActualEvent
 Actual events register details of events which has already been occurred.
 
 An Estimated or Actual Event is an Event with the following additional property:
@@ -305,9 +302,9 @@ An Estimated or Actual Event is an Event with the following additional property:
 **gpsLocation**
 The GPS coordinates of event location (longitude, altitude)
 
+#### Planned/Estimated/Actual MilestoneEvents
 ![Milestone Event Schemas](images/tracking-datamodel - Milestone.png)
 
-#### Planned/Estimated/Actual MilestoneEvents
 Milestones events inherit from generic events, with additional specific **MilestoneEventData**:
 
 **location**
@@ -334,9 +331,9 @@ The devices used to convey goods or other objects from place to place during log
 * **transportReference**: A transport reference like Transport Order, Visit number (sequence in the tour for rail transportation), or Voyage number for vessels.
 
 
+#### Estimated/Actual SmartEvents
 ![Smart Event Schemas](images/tracking-datamodel - smartevent.png)
 
-####Estimated/Actual SmartEvents
 Smart containers equipped with new technologies such as IoT can send “smart events” to transport participants.
 Smart events are ‘actual’, and could be ‘estimated’ if the smart container is ‘aware’ of its transport context and able to analyze it. 
 
