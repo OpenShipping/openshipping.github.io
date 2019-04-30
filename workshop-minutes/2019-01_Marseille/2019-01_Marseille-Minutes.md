@@ -2,7 +2,8 @@
 title: Openshipping workshop - January 2019 - Marseille
 ---
 
-- [Workshop PPT](2019-01_Marseille-OpenShipping-Workshops Jan19.pptx)
+Associated document :
+- 2019-01_Marseille-OpenShipping-Workshops Jan19.pptx
 
 ## Minutes of workshop - message sent on 02/22/2019 
 
