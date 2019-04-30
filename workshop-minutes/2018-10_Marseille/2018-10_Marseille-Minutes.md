@@ -92,4 +92,4 @@ Note that this two topics are no showstoppers, most likely they are to be manage
 
 ### Shared Repository:
 Following our discussion, and thanks to Peter, we put all the shared document in a private OpenShipping GitHub branch.
-We’ll shortly come back with more details on this repository.
+We’ll shortly come back with more details on this repository. 
