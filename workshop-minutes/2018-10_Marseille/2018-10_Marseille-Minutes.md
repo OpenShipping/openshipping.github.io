@@ -2,8 +2,9 @@
 title: Openshipping workshop - October 2018 - Marseille
 ---
 
-- [Workshop PPT](Workkshop API status_Traxens_20181008.pptx)
-- [BRS Supplpy Chain Reference Data Model] (BRS_SCRDM_v1.0.0.2.pdf)
+Associated documents :
+- Workkshop API status_Traxens_20181008.pptx
+- BRS_SCRDM_v1.0.0.2.pdf
 
 ## Minutes of workshop - message sent on 10/18/2018
 
