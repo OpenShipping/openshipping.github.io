@@ -224,3 +224,132 @@ While the milestone event model is based on this strict logical, where appropria
 
 ## Schema Data Model
 ![Tracking Data Model](images/tracking-datamodel.png)
+
+### Data Model Documentation 
+The section describes the attributes contributed by each schema defined in the Tracking API OpenAPI specification. 
+
+As presented in the resource model, this API allows to get tracking data of Consignments and Transport Equipment resources.
+![Consignement and TransportEquipment Schemas](images/tracking-datamodel-resources.png)
+
+#### Consignment
+*A consignment is a separately identifiable collection of Container Transports (available to be) transported from one Consignor to one Consignee via one or more modes of transport as specified in one single transport service contractual document [CEFACT definition]*.
+
+In our tracking context, the Consignment schema provides the following data:
+- **consignmentRef**: 
+Consignment identifier, carrier assigned reference number assigned by a carrier of its agent to identify a specific consignment such as a booking reference number when cargo space is reserved prior to loading (BN as defined in http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
+- The aggregation of **Planned Events** that have been registered for this consignment.
+- The aggregation of tracking data of each **Transport Equipment** related to this consignment.
+
+#### TransportEquipment
+*A piece of equipment used to hold, protect or secure cargo for logistics purposes [CEFACT definition]. Transport Equipment are assigned to consignment when its transport execution starts.*
+
+In our tracking context, **TransportEquipment** schema provides the following data:
+- **equipmentNumber**:
+ISO 6346 goverend number, physically printed on the equipment. This represents UN/EDIFACT's EQ code. Number assigned by the manufacturer to specific equipment. (http://www.unece.org/fileadmin/DAM/trade/untdid/d16b/tred/tred1153.htm)
+- The reference of the related consignment (if the user is authenticated and has the right to 	access data at consignment level)
+- The aggregation of **Estimated Events** that have been registered for this equipment.
+- The aggregation of **Actual Events** that have been registered for this equipment.
+
+The model shows that Planned/Estimated/Actual events inherit all from a generic **Event**, and could be instantiated as milestones or smart events. These different event schemas are described below. 
+
+![Event Schema](images/tracking-datamodel_event.png)
+#### Event
+The model relies on a main generic entity **Event** which provides a generic pattern to describe a tracking event.
+
+* **eventCodeType**
+`string`
+This can link to coded event standards, such as 'EDIFACT' or 'CEFACT Recommendation 24'.
+example: CEFACT Recommendation 24
+
+* **eventCodeValue**
+`string`
+The code as per the above codification scheme. 
+example: 359
+
+* **eventCodeDescription**
+`string`
+Description as per the codeification scheme. 
+example: Bill of Lading issued
+
+* **eventTime**
+`string($date-time)`
+Time of the event occurrance, in ISO 8601 format
+
+* **originatorId**
+`string`
+SCAC code of the organization that published this event
+
+#### PlannedEvent
+Planned events are submitted by the carrier, responsible for executing a consignment as per the agreement of the booking.
+A consignment trip plan might be updated (e.g. due to route change), and thus planned events could be grouped according to a plan reference or revision. 
+
+A Planned Event is an Event with the following additional property:
+* **planRef**
+`string`
+Common reference used across a set of planned events, in order to associate them to the same plan.
+
+#### EstimatedEvent
+Estimated events can be submitted by participants of the consignment execution. They represent how the planned events are expected to be executed. 
+
+#### ActualEvent
+Actual events register details of events which has already been occurred.
+
+
+An Estimated or Actual Event is an Event with the following additional property:
+* **gpsLocation**
+The GPS coordinates of event location (longitude, altitude)
+
+#### Planned/Estimated/Actual MilestoneEvents
+![Milestone Event Schemas](images/tracking-datamodel-Milestone.png)
+
+Milestones events inherit from generic events, with additional specific **MilestoneEventData**:
+
+* **location**
+`string` The UN/LOCODE where the event occurred. example: AUSYD
+
+* **terminal**
+`string` SMDG code of the terminal where the event took place. example: USMOB-APMTSMDG 
+
+* **transportationPhase**
+`string` The transportation phase. example: Import
+
+* **fullStatus**
+`string` Indication of whether the container is full or empty. example: Full
+
+* **Transport Movement**
+`Object`
+The conveyance (physical carriage) of goods or other objects used for logistics transport purpose. It includes:
+	- **vehicleId**: Identification of the means of transport. Use IMO numbers for vessels and barges
+	- **vehicleType**: Truck, Vessel, Rail, Barge, Air
+
+* **Transport Means**
+`Object`
+The devices used to convey goods or other objects from place to place during logistics cargo movements. It includes:
+	- **transportReference**: A transport reference like Transport Order, Visit number (sequence in the tour for rail transportation), or Voyage number for vessels.
+
+
+#### Estimated/Actual SmartEvents
+![Smart Event Schemas](images/tracking-datamodel-smartevent.png)
+
+Smart containers equipped with new technologies such as IoT can send “smart events” to transport participants.
+Smart events are ‘actual’, and could be ‘estimated’ if the smart container is ‘aware’ of its transport context and able to analyze it. 
+
+Smart events inherit from generic events, with additional specific **SmartEventData**:
+
+**metaData**
+metadata related to smart events:
+* **assetId**: Container number
+* **assetType**: Asset type. For instance, 'DRY' or 'Refeer'
+* **deviceId**: Id of the IOT device used for asset tracking
+* **generationTimestamp**: Generation timestamp of the event
+* **software**: Name of software used for posting event
+* **softwareVersion**: Software version
+
+**eventDetail**
+Free object describing the additional data that might be carried by a smart event, such as:
+* physical reefer measurements – for reefer monitoring,
+* out of range values – for reefer alerting
+* Location details – for geofencing.
+* ...
+
+This ‘generic’ object will be specified later, based on outputs of smart container project (i.e. codification of smart events and their data model). 
