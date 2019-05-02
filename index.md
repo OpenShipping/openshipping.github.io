@@ -4,6 +4,7 @@ title: OpenShipping.org
 
 - [Standards](standards.md)
 - [Charter](charter.md)
+- [Members](members.md)
 
 ## Welcome to OpenShipping.org
 A collaboration of shipping's leading digital innovators. Through open source standards and frameworks the shipping industry is enabled to benefit from transparent and readily available digital connectivity.
