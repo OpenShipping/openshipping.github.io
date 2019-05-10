@@ -4,6 +4,7 @@ title: Standards Recommendations
 
 - [Home](index.md)
 - [Charter](charter.md)
+- [Members](members.md)
 
 ## Standards Recommendations
 
