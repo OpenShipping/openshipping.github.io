@@ -6,16 +6,7 @@ title: OpenShipping.org Members list
 - [Standards](standards.md)
 - [Charter](charter.md)
 
-## Here are the members of openshipping.org
-
-### Steering committee (by alphabetical order)
-* Kai Heinrich, Hapag-Lloyd
-* Lutercia Porto, MSC
-* Nis Jesperson, Maersk
-* Peter Savinsky, Nyshex
-* Romain Genoulaz, CMA CGM
-
-### Members community (by alphabetical order)
+## Here are the members of openshipping.org ( alphabetical order)
 * AhReum Han, Cyberlogitec
 * Andrew Sisto, Project44
 * Anthony McClellan, 721 Logistics
@@ -34,10 +25,15 @@ title: OpenShipping.org Members list
 * Hrushikesh Joshi, Absortio
 * Jason Kerner, Project44
 * Jeff Wehner, Haven
+* Kai Heinrich, Hapag-Lloyd
+* Lutercia Porto, MSC
 * Michiel Valee, Dockflow
 * Miguel Llop Chabrera, Fundación Valenciaport
 * Muaz Gültekin, Barsan Global Lojistic Company
+* Nis Jesperson, Maersk
+* Peter Savitsky, Nyshex
 * Robert Reese, Aerus prime
+* Romain Genoulaz, CMA CGM
 * Rudy Hemeleers, 51biz
 * Saman Sjukur,Samudera Pacific Maju
 * Sean Daly, ROAR Logistics
