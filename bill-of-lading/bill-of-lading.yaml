@@ -1,0 +1,576 @@
+openapi: "3.0.0"
+info:
+  version: "0.3"
+  title: "Bill Of Lading"
+paths:
+  /billOfLading:
+    post:
+      summary: "Post BOL"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillOfLading'
+      responses:
+        200:
+          description: "OK"
+components:
+  schemas: 
+    BillOfLading: 
+      type: object
+      required: 
+      - consignor
+      - consignee
+      - billOfLadingNumber
+      properties: 
+        negotiable: 
+         description: "Negotiable Bill of Lading"
+         type: boolean
+        transportDocumentNumber: 
+         description: "Reference number assigned to the document by the issuer such as bill of lading number or sea waybill number."
+         type: string
+        references: 
+         type: array
+         items: 
+          "$ref": "#/components/schemas/Reference"
+        certifiedMember: 
+         type: string
+        bookingNumber: 
+         type: array
+         items: 
+          description: "Booking Number(s)"
+          type: string
+        consignor: 
+         "$ref": "#/components/schemas/PartyDetails"
+        consignee: 
+         "$ref": "#/components/schemas/PartyDetails"
+        notifyParties: 
+         type: array
+         items: 
+          "$ref": "#/components/schemas/PartyDetails"
+        otherParties:
+          type: array
+          items: 
+            "$ref": "#/components/schemas/OtherPartyDetails"
+        multimodalTransportOperator: 
+         type: object
+         properties: 
+          Name: 
+           type: string
+          PlaceOfBusiness: 
+           type: string
+        declarationOfInterest: 
+         type: boolean
+         description: "Consignor's declaration of interest in timely delivery of goods"
+        witness: 
+         type: string
+         description: "In witness whereof this MTD has been signed"
+        placeOfAcceptance: 
+         "$ref": "#/components/schemas/Location"
+        placeOfTranshipment: 
+         "$ref": "#/components/schemas/Location"
+        placeOfDelivery: 
+         "$ref": "#/components/schemas/Location"
+        transportMode: 
+         type: string
+         description: "Name of a specific means of transport such as the vessel name."
+        transportMeans: 
+          type: string
+          description: "To identify a journey of a means of transport, for example voyage number, flight number, trip number."         
+        dateOfAcceptance: 
+         type: string
+         format: date
+        particulars: 
+         type: array
+         items: 
+          "$ref": "#/components/schemas/Particular"
+        freightAndCharges: 
+         type: array
+         items: 
+          "$ref": "#/components/schemas/FreightAndCharges"
+        freightPayableAt: 
+         "$ref": "#/components/schemas/Location"
+        numberOfMultimodalTransportDocuments: 
+         type: string
+        carrierName: 
+         type: string
+        placeOfIssue: 
+         "$ref": "#/components/schemas/Location"
+        dateOfIssue: 
+         type: string
+         format: date
+        freightedAtAd: 
+         type: boolean
+         description: "Consignor declares the goods under this MTD to be freighted at Ad valorem rates"
+        authenticatingSignature: 
+         "$ref": "#/components/schemas/AuthenticatingSignature"
+    PartyDetails: 
+      type: object
+      required: 
+      - name
+      properties: 
+        name: 
+          type: string
+        address: 
+          "$ref": "#/components/schemas/Address"
+        printedParty:
+          type: string
+          description: The party name and address exactly as printed on the document.
+        registeredForVAT: 
+         description: "Registered for VAT"
+         type: boolean
+        taxReference: 
+         type: string
+        communicationDetails: 
+         "$ref": "#/components/schemas/CommunicationDetails"
+    OtherPartyDetails:
+      allOf:
+        - "$ref": "#/components/schemas/PartyDetails"
+      properties: 
+        partyType:
+          type: string
+          enum: 
+            - "Seller"
+            - "Buyer"
+            - "Exporter"
+            - "Importer"
+            - "Consignor"
+            - "Consignee"
+            - "Origin 3PL"
+            - "Destination 3PL"
+            - "Export Customs Broker"
+            - "Import Customs Broker"
+            - "Request Party"
+            - "Notify Party"
+            - "Buyer's Bank"
+            - "Seller's Bank"
+            - "Insurance Provider"
+            - "Ocean Carrier"
+            - "Transport Service Buyer"
+            - "Transport Service Intermediary"
+            - "Rail Operator"
+            - "Truck Operator"
+            - "Barge Operator"
+            - "Feeder Operator"
+            - "Origin Marine Terminal"
+            - "Destination Marine Terminal"
+            - "Trans-shipment Terminal"
+            - "Inland Terminal"
+            - "Port Community System"
+            - "Export Authority"
+            - "Import Authority"
+            - "Inland Aggregator"
+    Address: 
+     type: object
+     properties: 
+      street: 
+       type: string
+      city: 
+       type: string
+      state: 
+       type: string
+      country: 
+       "$ref": "#/components/schemas/Country"
+    Country: 
+      type: string
+      enum: 
+        - "AD"
+        - "AE"
+        - "AF"
+        - "AG"
+        - "AI"
+        - "AL"
+        - "AM"
+        - "AO"
+        - "AQ"
+        - "AR"
+        - "AS"
+        - "AT"
+        - "AU"
+        - "AW"
+        - "AX"
+        - "AZ"
+        - "BA"
+        - "BB"
+        - "BD"
+        - "BE"
+        - "BF"
+        - "BG"
+        - "BH"
+        - "BI"
+        - "BJ"
+        - "BL"
+        - "BM"
+        - "BN"
+        - "BO"
+        - "BQ"
+        - "BR"
+        - "BS"
+        - "BT"
+        - "BV"
+        - "BW"
+        - "BY"
+        - "BZ"
+        - "CA"
+        - "CC"
+        - "CD"
+        - "CF"
+        - "CG"
+        - "CH"
+        - "CI"
+        - "CK"
+        - "CL"
+        - "CM"
+        - "CN"
+        - "CO"
+        - "CR"
+        - "CU"
+        - "CV"
+        - "CW"
+        - "CX"
+        - "CY"
+        - "CZ"
+        - "DE"
+        - "DJ"
+        - "DK"
+        - "DM"
+        - "DO"
+        - "DZ"
+        - "EC"
+        - "EE"
+        - "EG"
+        - "EH"
+        - "ER"
+        - "ES"
+        - "ET"
+        - "FI"
+        - "FJ"
+        - "FK"
+        - "FM"
+        - "FO"
+        - "FR"
+        - "GA"
+        - "GB"
+        - "GD"
+        - "GE"
+        - "GF"
+        - "GG"
+        - "GH"
+        - "GI"
+        - "GL"
+        - "GM"
+        - "GN"
+        - "GP"
+        - "GQ"
+        - "GR"
+        - "GS"
+        - "GT"
+        - "GU"
+        - "GW"
+        - "GY"
+        - "HK"
+        - "HM"
+        - "HN"
+        - "HR"
+        - "HT"
+        - "HU"
+        - "ID"
+        - "IE"
+        - "IL"
+        - "IM"
+        - "IN"
+        - "IO"
+        - "IQ"
+        - "IR"
+        - "IS"
+        - "IT"
+        - "JE"
+        - "JM"
+        - "JO"
+        - "JP"
+        - "KE"
+        - "KG"
+        - "KH"
+        - "KI"
+        - "KM"
+        - "KN"
+        - "KP"
+        - "KR"
+        - "KW"
+        - "KY"
+        - "KZ"
+        - "LA"
+        - "LB"
+        - "LC"
+        - "LI"
+        - "LK"
+        - "LR"
+        - "LS"
+        - "LT"
+        - "LU"
+        - "LV"
+        - "LY"
+        - "MA"
+        - "MC"
+        - "MD"
+        - "ME"
+        - "MF"
+        - "MG"
+        - "MH"
+        - "MK"
+        - "ML"
+        - "MM"
+        - "MN"
+        - "MO"
+        - "MP"
+        - "MQ"
+        - "MR"
+        - "MS"
+        - "MT"
+        - "MU"
+        - "MV"
+        - "MW"
+        - "MX"
+        - "MY"
+        - "MZ"
+        - "NA"
+        - "NC"
+        - "NE"
+        - "NF"
+        - "NG"
+        - "NI"
+        - "NL"
+        - "NO"
+        - "NP"
+        - "NR"
+        - "NU"
+        - "NZ"
+        - "OM"
+        - "PA"
+        - "PE"
+        - "PF"
+        - "PG"
+        - "PH"
+        - "PK"
+        - "PL"
+        - "PM"
+        - "PN"
+        - "PR"
+        - "PS"
+        - "PT"
+        - "PW"
+        - "PY"
+        - "QA"
+        - "RE"
+        - "RO"
+        - "RS"
+        - "RU"
+        - "RW"
+        - "SA"
+        - "SB"
+        - "SC"
+        - "SD"
+        - "SE"
+        - "SG"
+        - "SH"
+        - "SI"
+        - "SJ"
+        - "SK"
+        - "SL"
+        - "SM"
+        - "SN"
+        - "SO"
+        - "SR"
+        - "SS"
+        - "ST"
+        - "SV"
+        - "SX"
+        - "SY"
+        - "SZ"
+        - "TC"
+        - "TD"
+        - "TF"
+        - "TG"
+        - "TH"
+        - "TJ"
+        - "TK"
+        - "TL"
+        - "TM"
+        - "TN"
+        - "TO"
+        - "TR"
+        - "TT"
+        - "TV"
+        - "TW"
+        - "TZ"
+        - "UA"
+        - "UG"
+        - "UM"
+        - "US"
+        - "UY"
+        - "UZ"
+        - "VA"
+        - "VC"
+        - "VE"
+        - "VG"
+        - "VI"
+        - "VN"
+        - "VU"
+        - "WF"
+        - "WS"
+        - "YE"
+        - "YT"
+        - "ZA"
+        - "ZM"
+        - "ZW"
+        - "OA"
+        - "OB"
+        - "OC"
+        - "OD"
+        - "OE"
+        - "OF"
+        - "OG"
+        - "OZ"
+    CommunicationDetails: 
+      type: object
+      properties: 
+        telephone: 
+          type: string
+        fax: 
+          type: string
+        email: 
+          type: string
+          format: email
+    Reference: 
+      type: object
+      properties: 
+        type: 
+          type: string 
+          enum: 
+            - BN Booking reference number
+            - BM Bill of Lading Number
+            - BH House bill of lading number
+            - LC Letter of credit number
+            - ON Order Number (Purchase)
+            - GN Government reference number
+            - CG Consignee's order number
+            - ADU Customs House Broker Reference Number
+            - CT Contract Number
+            - ERN Exporter's reference number
+            - SI SID (Shipper's identifying number for shipment)
+            - FF Freight forwarder's reference number
+            - IV Invoice number
+            - ALK Consignee's invoice number
+            - AFG Tariff number
+            - AKG Vehicle Identification Number (VIN)
+            - EX Export License Number
+            - AGB Contract party reference number
+            - ANT Consignee's reference
+            - P8 Pickup Reference Number
+            - AAB Proforma invoice number
+            - AAO Consignee's shipment reference number
+          description: Type of reference
+        value: 
+          type: string
+    Particular: 
+      type: object
+      properties: 
+        marksAndNumbers: 
+          "$ref": "#/components/schemas/MarksAndNumbers"
+        numberAndKindOfPackages: 
+          "$ref": "#/components/schemas/NumberAndKindOfPackages"
+        grossWeight: 
+          "$ref": "#/components/schemas/GrossWeight"
+        measurement: 
+          "$ref": "#/components/schemas/Measurement"
+    MarksAndNumbers: 
+      type: object
+      properties: 
+        sequenceId: 
+          type: integer
+          multipleOf: 1
+        shippingMarks: 
+          type: string
+        transportEquipmentId: 
+          type: array
+          items: 
+            description: "Equipment ID"
+            type: string
+    NumberAndKindOfPackages: 
+     type: object
+     required: 
+      - GoodsItemDescription
+     properties: 
+      numberOfPackages: 
+        type: integer
+      typeOfPackages: 
+        type: string
+        maxLength: 35
+      goodsItemDescription: 
+        type: string
+        maxLength: 512
+    GrossWeight: 
+     type: object
+     properties: 
+      value: 
+        type: number
+      unit: 
+        type: string
+        maxLength: 3
+        default: KG
+    Measurement: 
+     type: object
+     properties: 
+      value: 
+        type: number
+      unit: 
+        type: string
+        enum: 
+        - "CBM"
+    Location: 
+      type: object
+      properties: 
+        name: 
+          type: string
+        UNLocode: 
+          description: "UN/LOCODE"
+          type: string
+          minLength: 5
+          maxLength: 5
+          pattern: "[a-zA-Z]{5}"
+        printedLocation:
+          type: string
+          description: The location exactly as printed on the document.
+    AuthenticatingSignature: 
+      type: object
+      properties: 
+        authenticationCode: 
+          type: string
+          maxLength: 17
+        name: 
+          type: string
+          maxLength: 35
+    FreightAndCharges: 
+      type: object
+      properties: 
+        chargeCode: 
+          type: string
+          maxLength: 17
+        chargeText: 
+          type: string
+        rate: 
+          type: number
+        per: 
+          type: string
+          maxLength: 10
+        prepaidCollectIndicator: 
+          type: string
+          enum: 
+          - "C : Collect"
+          - "P : Prepaid"
+        prepaidAmount: 
+          type: number
+        collectAmount: 
+          type: number
+        currency: 
+          type: string
